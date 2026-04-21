@@ -9,10 +9,17 @@ public class CaixaEletronico implements ICaixaEletronico{
 	public CaixaEletronico() {
 	}
 	public String pegaRelatorioCedulas() {
-		String resposta = "";
-		//logica de fazer o relatorio de cedulas
-		return resposta;
-		}
+	    String resposta = "Relatório de Cédulas:\n";
+
+	    for (int i = 0; i < cedulas.length; i++) {
+	        int valor = cedulas[i][0];
+	        int quantidade = cedulas[i][1];
+
+	        resposta += "Nota de R$" + valor + ": " + quantidade + " Cédulas disponíveis\n";
+	    }
+
+	    return resposta;
+	}
 		public String pegaValorTotalDisponivel() {
 		String resposta = "";
 		//logica de pega o valor total disponivel no caixa eletronio

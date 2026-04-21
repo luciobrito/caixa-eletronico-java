@@ -14,6 +14,7 @@ public class Main {
         System.out.println(cx.armazenaCotaMinima(100000));
         cx.verificarCotaMinima();
 
+		
 	}
 
 }
