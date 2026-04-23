@@ -3,6 +3,7 @@ package br.edu.fatecguarulhos.caixaeletronico;
 public class CaixaEletronico implements ICaixaEletronico{
     private int totalDisponivel;
     private int cotaMinima;
+    private String extrato = "";
 
 	private int[][] cedulas = {{100,100}, {50,200}, {20,300},{10,350},{5,450}, {2,500}};
 	
@@ -20,6 +21,7 @@ public class CaixaEletronico implements ICaixaEletronico{
 
 	    return resposta;
 	}
+		
 		public String pegaValorTotalDisponivel() {
 			atualizarTotalDisponivel();
 			String resposta = ("Valor total disponivel : R$"+totalDisponivel+",00");
@@ -90,6 +92,9 @@ public class CaixaEletronico implements ICaixaEletronico{
 				if(nota[1] != 0)
 				resposta = resposta.concat(nota[1] + substantivo+" de R$"+ nota[0] + "\n");
 			}
+			
+			registrarSaque(valor, resposta);  //Registra automaticamente o saque no extrato
+			
 			return resposta;
 		}
 		private int calcularQuantidadeCedulas(int valorRestante, int valorCedula) {
@@ -124,5 +129,47 @@ public class CaixaEletronico implements ICaixaEletronico{
                 totalDisponivel += cedula[0] *  cedula[1];
             }
         }
+        
+        //Método responsável pelos registros de saques
+        public void registrarSaque(Integer valor, String resultado) {
+        	//zerar o total antes de recalcular, evitando erro de acumulação errada
+        	totalDisponivel = 0;  
+        	atualizarTotalDisponivel();  
+        	
+        	// Adiciona informações do saque ao extrato
+        	extrato += "Saque de R$ " + valor + "\n";  // valor sacado
+        	extrato += resultado;  // notas utilizadas
+        	extrato += "Saldo restante: R$ "+ totalDisponivel + "\n\n"; // saldo após o sque
+        }
+        
+        //Método responsável por gerar o extrato ao clicar no botão sair
+        public String gerarExtratoFinal() {
+        	
+        	//zerar o total antes de recalcular, evitando erro de acumulação errada
+        	totalDisponivel = 0;
+        	atualizarTotalDisponivel();
+        
+        	// Lógica para o caso de nenhum saque ter sido realizado
+        	if(extrato.isEmpty()) {
+        		return "Nenhum saque realizado.\nSaldo atual: R$ "+totalDisponivel;
+        	}
+        	
+        	// Irá retornar o extrato completo com o saldo final
+        	return "===== EXTRATO =====\n\n" + extrato + "Saldo final: R$ "+totalDisponivel;
+        } 
 
+        
+        /*public static void main(String[] args) {
+            CaixaEletronico caixa = new CaixaEletronico();
+
+            System.out.println("=== TESTE ===");
+
+            // Simulando saques
+            System.out.println(caixa.sacar(150));
+            System.out.println(caixa.sacar(70));
+
+            // Simulando botão sair (extrato)
+            System.out.println(caixa.gerarExtratoFinal());
+        }*/
+        
 }
