@@ -89,6 +89,11 @@ public class TelaPrincipal extends JFrame {
 		contentPane.add(lblMAdm);
 		
 		JButton btnRelaCedu = new JButton("Relatório de Cedulas");
+		btnRelaCedu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarPainelRelatorio();
+			}
+		});
 		btnRelaCedu.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnRelaCedu.setBackground(new Color(201, 231, 227));
 		btnRelaCedu.setBounds(20, 159, 324, 34);
@@ -131,6 +136,12 @@ public class TelaPrincipal extends JFrame {
 		contentPane.add(btnSair);
 
 	}
+
+	private void mostrarPainelRelatorio() {
+	String mensagem = caixaEletronico.pegaRelatorioCedulas();
+	JOptionPane.showMessageDialog(this, mensagem);
+	}
+	
 	private void mostrarPainelSaque() {
 		IconFontSwing.register(FontAwesome.getIconFont());
 		Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
@@ -170,4 +181,5 @@ public class TelaPrincipal extends JFrame {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+
 }
