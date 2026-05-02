@@ -118,6 +118,11 @@ public class TelaPrincipal extends JFrame {
 		
 		
 		JButton btnCota = new JButton("Cóta Mínima");
+		btnCota.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 mostrarPainelCotaMinima();
+			}
+		});
 		btnCota.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCota.setBackground(new Color(201, 231, 227));
 		btnCota.setBounds(20, 294, 324, 34);
@@ -191,5 +196,19 @@ public class TelaPrincipal extends JFrame {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	private void mostrarPainelCotaMinima() {
+		IconFontSwing.register(FontAwesome.getIconFont());
+		Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
+		String cotaMinima = (String) JOptionPane.showInputDialog(this,"Digite o novo valor para cota mínima:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
+		try {
+			Integer cotaMinimaDigitada = Integer.parseInt(cotaMinima);
+			String mensagem = caixaEletronico.armazenaCotaMinima(cotaMinimaDigitada);
+			JOptionPane.showMessageDialog(this, mensagem);
+			caixaEletronico.verificarCotaMinima();
+			} catch (RuntimeException re) {
+				JOptionPane.showMessageDialog(this, re.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+	        } catch (Exception e) {
+	        	JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+	        }
+	}
 }
