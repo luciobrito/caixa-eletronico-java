@@ -65,7 +65,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setResizable(false);
 		JLabel lblMCliente = new JLabel("Módulo do Cliente:");
 		lblMCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblMCliente.setBounds(10, 21, 142, 34);
@@ -169,6 +169,10 @@ public class TelaPrincipal extends JFrame {
 			IconFontSwing.register(FontAwesome.getIconFont());
 			Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 			String valor = (String) JOptionPane.showInputDialog(this,"Digite o valor que deseja sacar:","Saque",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
+			if(valor == null)
+				throw new Exception("null");
+			if(valor.isEmpty())
+				throw new Exception("Nenhum valor inserido");
 			Integer valorConvertido = Integer.parseInt(valor);
 			sacarValor(valorConvertido);
 		}
@@ -179,7 +183,8 @@ public class TelaPrincipal extends JFrame {
 			JOptionPane.showMessageDialog(this, re.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			if(!e.getMessage().contains("null"))
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
@@ -188,21 +193,26 @@ public class TelaPrincipal extends JFrame {
 	}
 	
 	private void mostrarPainelReposicao() {
+		try {
 		IconFontSwing.register(FontAwesome.getIconFont());
 		Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 		String cedula = (String) JOptionPane.showInputDialog(this,"Digite a cedula que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
-		
+		if(cedula == null)
+			throw new Exception("null");
+		if(cedula.isEmpty())
+			throw new Exception("Nenhum valor inserido");
 		IconFontSwing.register(FontAwesome.getIconFont());
 		Icon icon2 = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 		String quantidade = (String) JOptionPane.showInputDialog(this,"Digite a quantidade de cedulas que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
 		
-		try {
+		
 			Integer cedulaDigitada = Integer.parseInt(cedula);
 			Integer quantidadeDigitada = Integer.parseInt(quantidade);
 			String mensagem = caixaEletronico.reposicaoCedulas(cedulaDigitada,quantidadeDigitada);
 			JOptionPane.showMessageDialog(this, mensagem);
 		}
 		catch (Exception e) {
+			if(!e.getMessage().contains("null"))
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}

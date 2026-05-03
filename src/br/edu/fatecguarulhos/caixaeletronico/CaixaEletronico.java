@@ -63,6 +63,10 @@ public class CaixaEletronico implements ICaixaEletronico{
 			int[][] cedulasSacadas = {{100,0},{50,0},{20,0},{10,0}, {5,0},{2,0}};
 			int numeroDeCedulasEmitidas = 0;
 			String resposta = "";
+			if(valor > cotaMinima) 
+				throw new RuntimeException("Cota mínima de R$" + cotaMinima+" atingida");
+			if(valor < 2 || valor == 3)
+				throw new RuntimeException("Não é possível realizar esse tipo de saque");
 			for(int i = 0; i < cedulas.length; i++) {
 				//Recalcular notas se o valor não puder ser sacado com as maiores notas
 				
@@ -82,8 +86,8 @@ public class CaixaEletronico implements ICaixaEletronico{
 					numeroDeCedulasEmitidas--;
 				}
 			}
-			if(valorRestante != 0) throw new RuntimeException("Não há notas suficientes para sacar este valor.");
-			//Implementar exceção por falta de cédulas.
+			if(valorRestante != 0) 
+				throw new RuntimeException("Não há notas suficientes para sacar este valor.");
 			if(numeroDeCedulasEmitidas > 30) {
 				throw new RuntimeException("Não é possível sacar mais de 30 cédulas");
 			}
