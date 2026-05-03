@@ -88,6 +88,7 @@ public class TelaPrincipal extends JFrame {
 		lblMAdm.setBounds(10, 114, 177, 34);
 		contentPane.add(lblMAdm);
 		
+		//Botão responsável pelo relatorio de cedulas
 		JButton btnRelaCedu = new JButton("Relatório de Cedulas");
 		btnRelaCedu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,6 +100,7 @@ public class TelaPrincipal extends JFrame {
 		btnRelaCedu.setBounds(20, 159, 324, 34);
 		contentPane.add(btnRelaCedu);
 		
+		//Botão responsável pelo valor disponivel no caixa
 		JButton btnValor = new JButton("Valor total disponível");
 		btnValor.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnValor.setBackground(new Color(201, 231, 227));
@@ -110,6 +112,7 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		
+		//Botão responsável pela reposição das cedulas no caixa
 		JButton btnRepo = new JButton("Reposição de Cédulas");
 		btnRepo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,15 +157,18 @@ public class TelaPrincipal extends JFrame {
 
 	}
 
+	//Metodo para mostrar o Pop-up do relatorio de cedulas 
 	private void mostrarPainelRelatorio() {
 	String mensagem = caixaEletronico.pegaRelatorioCedulas();
 	JOptionPane.showMessageDialog(this, mensagem);
 	}
+	
+	//Metodo para mostrar o Pop-up do valor disponivel
 	private void mostrarValorDispo() {
 	String mensagem = caixaEletronico.pegaValorTotalDisponivel();
 	JOptionPane.showMessageDialog(this, mensagem);
-	
 	}
+	
 	
 	private void mostrarPainelSaque() {
 		try {
@@ -193,30 +199,39 @@ public class TelaPrincipal extends JFrame {
 		JOptionPane.showMessageDialog(this,caixaEletronico.sacar(valor),"Seu dinheiro:", JOptionPane.PLAIN_MESSAGE);
 	}
 	
-	private void mostrarPainelReposicao() {
-		try {
-		IconFontSwing.register(FontAwesome.getIconFont());
-		Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
-		String cedula = (String) JOptionPane.showInputDialog(this,"Digite a cedula que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
-		if(cedula == null)
-			throw new Exception("null");
-		if(cedula.isEmpty())
-			throw new Exception("Nenhum valor inserido");
-		IconFontSwing.register(FontAwesome.getIconFont());
-		Icon icon2 = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
-		String quantidade = (String) JOptionPane.showInputDialog(this,"Digite a quantidade de cedulas que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
-		
-		
-			Integer cedulaDigitada = Integer.parseInt(cedula);
-			Integer quantidadeDigitada = Integer.parseInt(quantidade);
-			String mensagem = caixaEletronico.reposicaoCedulas(cedulaDigitada,quantidadeDigitada);
-			JOptionPane.showMessageDialog(this, mensagem);
+	//Metodo para mostrar o Pop-up da reposição de cedulas
+		private void mostrarPainelReposicao() {
+			try {
+			IconFontSwing.register(FontAwesome.getIconFont());
+			Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
+			String cedula = (String) JOptionPane.showInputDialog(this,"Digite a cedula que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
+			if (cedula == null)
+				throw new Exception("null");
+			if (cedula.isEmpty())
+				throw new Exception("Nenhum valor inserido");
+			IconFontSwing.register(FontAwesome.getIconFont());
+			Icon icon2 = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
+			String quantidade = (String) JOptionPane.showInputDialog(this,"Digite a quantidade de cedulas que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
+			if (quantidade == null)
+				throw new Exception("null");
+			if (quantidade.isEmpty())
+				throw new Exception("Nenhum valor inserido");
+			
+				Integer cedulaDigitada = Integer.parseInt(cedula);
+				Integer quantidadeDigitada = Integer.parseInt(quantidade);
+				String mensagem = caixaEletronico.reposicaoCedulas(cedulaDigitada,quantidadeDigitada);
+				JOptionPane.showMessageDialog(this, mensagem);
+			}
+			// exceção caso os números digitados não sejam interiros
+			catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(this, "Valor inserido não é um número inteiro", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+			catch (Exception e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+			
 		}
-		catch (Exception e) {
-			if(!e.getMessage().contains("null"))
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
-	}
+		
 	private void mostrarPainelCotaMinima() {
 		IconFontSwing.register(FontAwesome.getIconFont());
 		Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);

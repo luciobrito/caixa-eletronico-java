@@ -10,6 +10,7 @@ public class CaixaEletronico implements ICaixaEletronico{
 	public CaixaEletronico() {
 	}
 	public String pegaRelatorioCedulas() {
+		//logica que pega a quantidade de notas das respectivas cedulas e as printa
 	    String resposta = "Relatório de Cédulas:\n";
 
 	    for (int i = 0; i < cedulas.length; i++) {
@@ -31,29 +32,32 @@ public class CaixaEletronico implements ICaixaEletronico{
 		
 		public String reposicaoCedulas(Integer cedula, Integer quantidade) {
 				
-			
-				if (cedula == 100) {
-					cedulas[0][1] = cedulas[0][1] += quantidade; 
-				}
-				else if (cedula == 50) {
-					cedulas[1][1] = cedulas[1][1] += quantidade; 
-				}
-				else if (cedula == 20) {
-					cedulas[2][1] = cedulas[2][1] += quantidade;
-				}
-				else if (cedula == 10) {
-					cedulas[3][1] = cedulas[3][1] += quantidade; 
-				}
-				else if (cedula == 5) {
-					cedulas[4][1] = cedulas[4][1] += quantidade; 
-				}
-				else if (cedula == 2) {
-					cedulas[5][1] = cedulas[5][1] += quantidade; 
-				}
-				else{
-					 throw new RuntimeException("A cedula digitada não existe no sistema.");
-				}
-				
+			if (quantidade <= 0) {
+				throw new RuntimeException("Por favor ensira uma quantidade acima de 0");
+			}else {
+				//logiva de adicionar a quantidade de notas a respectivas cedulas
+					if (cedula == 100) {
+						cedulas[0][1] = cedulas[0][1] += quantidade; 
+					}
+					else if (cedula == 50) {
+						cedulas[1][1] = cedulas[1][1] += quantidade; 
+					}
+					else if (cedula == 20) {
+						cedulas[2][1] = cedulas[2][1] += quantidade;
+					}
+					else if (cedula == 10) {
+						cedulas[3][1] = cedulas[3][1] += quantidade; 
+					}
+					else if (cedula == 5) {
+						cedulas[4][1] = cedulas[4][1] += quantidade; 
+					}
+					else if (cedula == 2) {
+						cedulas[5][1] = cedulas[5][1] += quantidade; 
+					}
+					else{
+						 throw new RuntimeException("A cedula digitada não existe no sistema.");
+					}
+			}				
 				String resposta = "Reposição realizada com sucesso";
 				return resposta;
 			}
