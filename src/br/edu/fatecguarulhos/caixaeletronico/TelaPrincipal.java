@@ -104,6 +104,11 @@ public class TelaPrincipal extends JFrame {
 		btnValor.setBackground(new Color(201, 231, 227));
 		btnValor.setBounds(20, 204, 324, 34);
 		contentPane.add(btnValor);
+		btnValor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarValorDispo();
+			}
+		});
 		
 		JButton btnRepo = new JButton("Reposição de Cédulas");
 		btnRepo.addActionListener(new ActionListener() {
@@ -152,6 +157,11 @@ public class TelaPrincipal extends JFrame {
 	private void mostrarPainelRelatorio() {
 	String mensagem = caixaEletronico.pegaRelatorioCedulas();
 	JOptionPane.showMessageDialog(this, mensagem);
+	}
+	private void mostrarValorDispo() {
+	String mensagem = caixaEletronico.pegaValorTotalDisponivel();
+	JOptionPane.showMessageDialog(this, mensagem);
+	
 	}
 	
 	private void mostrarPainelSaque() {
