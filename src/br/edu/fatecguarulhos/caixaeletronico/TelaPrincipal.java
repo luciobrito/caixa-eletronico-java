@@ -125,7 +125,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.add(btnRepo);
 		
 		
-		JButton btnCota = new JButton("Cóta Mínima");
+		JButton btnCota = new JButton("Cota Mínima");
 		btnCota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 mostrarPainelCotaMinima();
@@ -178,20 +178,19 @@ public class TelaPrincipal extends JFrame {
 			Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 			String valor = (String) JOptionPane.showInputDialog(this,"Digite o valor que deseja sacar:","Saque",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
 			if(valor == null)
-				throw new Exception("null");
+				return;
 			if(valor.isEmpty())
 				throw new Exception("Nenhum valor inserido");
 			Integer valorConvertido = Integer.parseInt(valor);
 			sacarValor(valorConvertido);
 		}
 		catch (NumberFormatException nfe) {
-			JOptionPane.showMessageDialog(this, "Valor inserido não é um número inteiro ou é um valor muito alto", "Erro", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Valor inserido não é um número inteiro", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (RuntimeException re) {
 			JOptionPane.showMessageDialog(this, re.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (Exception e) {
-			if(!e.getMessage().contains("null"))
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		
@@ -207,14 +206,14 @@ public class TelaPrincipal extends JFrame {
 			Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 			String cedula = (String) JOptionPane.showInputDialog(this,"Digite a cedula que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
 			if (cedula == null)
-				throw new Exception("null");
+				return;
 			if (cedula.isEmpty())
 				throw new Exception("Nenhum valor inserido");
 			IconFontSwing.register(FontAwesome.getIconFont());
 			Icon icon2 = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 			String quantidade = (String) JOptionPane.showInputDialog(this,"Digite a quantidade de cedulas que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
 			if (quantidade == null)
-				throw new Exception("null");
+				return;
 			if (quantidade.isEmpty())
 				throw new Exception("Nenhum valor inserido");
 			
@@ -239,8 +238,9 @@ public class TelaPrincipal extends JFrame {
 		Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 		String cotaMinima = (String) JOptionPane.showInputDialog(this,"Digite o novo valor para cota mínima:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
 		// verificar se foi apertado o botão "cancel"
-		if(cotaMinima != null) {
+		if(cotaMinima == null) return;
 			try {
+				if(cotaMinima.isEmpty()) throw new Exception("Nenhum valor digitado");
 				Integer cotaMinimaDigitada = Integer.parseInt(cotaMinima);
 				String mensagem = caixaEletronico.armazenaCotaMinima(cotaMinimaDigitada);
 				JOptionPane.showMessageDialog(this, mensagem);
@@ -255,5 +255,5 @@ public class TelaPrincipal extends JFrame {
 		        	JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		        }
 			}
-		}
+		
 }
