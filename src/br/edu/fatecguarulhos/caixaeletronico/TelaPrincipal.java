@@ -1,19 +1,14 @@
 package br.edu.fatecguarulhos.caixaeletronico;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
-
 import javax.swing.Icon;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -29,15 +24,6 @@ public class TelaPrincipal extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		/*
-        try {
-            // Set the Look and Feel to the system's native one
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | 
-                 IllegalAccessException | UnsupportedLookAndFeelException e) {
-            // Log or handle the exception if the theme cannot be loaded
-            e.printStackTrace();
-        }*/
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -184,9 +170,6 @@ public class TelaPrincipal extends JFrame {
 		catch (NumberFormatException nfe) {
 			JOptionPane.showMessageDialog(this, "Valor inserido não é um número inteiro", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		catch (RuntimeException re) {
-			JOptionPane.showMessageDialog(this, re.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		}
 		catch (Exception e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -235,12 +218,13 @@ public class TelaPrincipal extends JFrame {
 		
 	private void mostrarPainelCotaMinima() {
 		// texto e coleta de valor
-		IconFontSwing.register(FontAwesome.getIconFont());
-		Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
-		String cotaMinima = (String) JOptionPane.showInputDialog(this,"Digite o novo valor para cota mínima:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
-		// verificar se foi apertado o botão "cancel"
-		if(cotaMinima == null) return;
+
 			try {
+				IconFontSwing.register(FontAwesome.getIconFont());
+				Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
+				String cotaMinima = (String) JOptionPane.showInputDialog(this,"Digite o novo valor para cota mínima:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
+				// verificar se foi apertado o botão "cancel"
+				if(cotaMinima == null) return;
 				if(cotaMinima.isEmpty()) throw new Exception("Nenhum valor digitado");
 				Integer cotaMinimaDigitada = Integer.parseInt(cotaMinima);
 				String mensagem = caixaEletronico.armazenaCotaMinima(cotaMinimaDigitada);
@@ -249,9 +233,7 @@ public class TelaPrincipal extends JFrame {
 				caixaEletronico.verificarCotaMinima();
 
 				} catch (NumberFormatException ne) {
-					JOptionPane.showMessageDialog(this, ne.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		        } catch (RuntimeException re) {
-		        	JOptionPane.showMessageDialog(this, re.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Valor inserido não é um número inteiro", "Erro", JOptionPane.ERROR_MESSAGE);
 		        } catch (Exception e) {
 		        	JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 		        }
