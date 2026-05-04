@@ -60,7 +60,7 @@ public class TelaPrincipal extends JFrame {
 		caixaEletronico = new CaixaEletronico();
 		setTitle("Caixa Eletronico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 370, 563);
+		setBounds(100, 100, 361, 563);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,7 +85,7 @@ public class TelaPrincipal extends JFrame {
 		
 		JLabel lblMAdm = new JLabel("Módulo do Administrador:");
 		lblMAdm.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblMAdm.setBounds(10, 114, 177, 34);
+		lblMAdm.setBounds(10, 114, 226, 34);
 		contentPane.add(lblMAdm);
 		
 		//Botão responsável pelo relatorio de cedulas

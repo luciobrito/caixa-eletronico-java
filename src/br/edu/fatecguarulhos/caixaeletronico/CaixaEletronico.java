@@ -91,7 +91,7 @@ public class CaixaEletronico implements ICaixaEletronico{
 				}
 			}
 			if(valorRestante != 0) 
-				throw new RuntimeException("Não há notas suficientes para sacar este valor.");
+				throw new RuntimeException("Saque não realizado por falta de cédulas");
 			if(numeroDeCedulasEmitidas > 30) {
 				throw new RuntimeException("Não é possível sacar mais de 30 cédulas");
 			}
@@ -108,11 +108,6 @@ public class CaixaEletronico implements ICaixaEletronico{
 		}
 		private int calcularQuantidadeCedulas(int valorRestante, int valorCedula) {
 			return (valorRestante - (valorRestante % valorCedula)) / valorCedula;
-		}
-		private void devolverCedulas(int cedulas[][]) {
-			for(int i = 0; i < cedulas.length; i++) {
-				this.cedulas[i][1] += cedulas[i][1];
-			}
 		}
 		private void removerCedulas(int cedulas[][]) {
 			for(int i = 0; i < cedulas.length; i++) {
