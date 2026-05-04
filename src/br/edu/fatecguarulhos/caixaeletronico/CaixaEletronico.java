@@ -163,5 +163,11 @@ public class CaixaEletronico implements ICaixaEletronico{
         	// Irá retornar o extrato completo com o saldo final
         	return "===== EXTRATO =====\n\n" + extrato + "Saldo final: R$ "+totalDisponivel;
         } 
+        public void verificarDisponibilidadeCedula(Integer valorCedula) {
+        	for(int[] cedula : cedulas) {
+        		if(valorCedula == cedula[0]) return;
+        	}
+        	throw new RuntimeException("A cedula digitada não existe no sistema.");
+        }
 
 }

@@ -9,9 +9,6 @@ import javax.swing.border.EmptyBorder;
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
 
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -202,22 +199,26 @@ public class TelaPrincipal extends JFrame {
 	//Metodo para mostrar o Pop-up da reposição de cedulas
 		private void mostrarPainelReposicao() {
 			try {
+			
 			IconFontSwing.register(FontAwesome.getIconFont());
 			Icon icon = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 			String cedula = (String) JOptionPane.showInputDialog(this,"Digite a cedula que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
+			Integer cedulaDigitada = Integer.parseInt(cedula);
+			caixaEletronico.verificarDisponibilidadeCedula(cedulaDigitada);
 			if (cedula == null)
 				return;
 			if (cedula.isEmpty())
 				throw new Exception("Nenhum valor inserido");
 			IconFontSwing.register(FontAwesome.getIconFont());
-			Icon icon2 = IconFontSwing.buildIcon(FontAwesome.MONEY, 30);
 			String quantidade = (String) JOptionPane.showInputDialog(this,"Digite a quantidade de cedulas que deseja repor:","Repor",JOptionPane.INFORMATION_MESSAGE,icon, null, "");
+			
+			//Se nada for digitado, apenas encerra a operação
 			if (quantidade == null)
 				return;
 			if (quantidade.isEmpty())
 				throw new Exception("Nenhum valor inserido");
 			
-				Integer cedulaDigitada = Integer.parseInt(cedula);
+				
 				Integer quantidadeDigitada = Integer.parseInt(quantidade);
 				String mensagem = caixaEletronico.reposicaoCedulas(cedulaDigitada,quantidadeDigitada);
 				JOptionPane.showMessageDialog(this, mensagem);
